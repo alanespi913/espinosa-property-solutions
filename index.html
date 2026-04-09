@@ -6,210 +6,480 @@
   <title>Espinosa Property Solutions</title>
   <style>
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-      color: #111;
+      background: #f4f1eb;
+      color: #171717;
       line-height: 1.6;
     }
+    a { text-decoration: none; color: inherit; }
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
     nav {
-      background: #fff;
-      padding: 18px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
+      padding: 18px 0;
+      gap: 20px;
     }
-    nav h1 {
-      margin: 0;
+    .brand {
       font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
-    nav a {
-      margin-left: 18px;
-      text-decoration: none;
-      color: #111;
+    .brand span {
+      color: #8c5a34;
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
       font-weight: 600;
+      color: #333;
     }
     .hero {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 90px 24px 70px;
-      text-align: center;
+      background:
+        linear-gradient(rgba(18,18,18,0.45), rgba(18,18,18,0.55)),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80') center/cover;
+      color: white;
+      padding: 110px 0 90px;
     }
-    .hero h2 {
-      font-size: 46px;
-      margin-bottom: 16px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1.05;
+      margin: 0 0 16px;
+      letter-spacing: -1.5px;
     }
     .hero p {
       font-size: 18px;
-      color: #555;
-      max-width: 700px;
-      margin: 0 auto 28px;
+      max-width: 640px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
     }
     .btn {
       display: inline-block;
-      background: #111;
-      color: #fff;
-      text-decoration: none;
-      padding: 14px 24px;
+      padding: 14px 22px;
       border-radius: 14px;
       font-weight: 700;
+      transition: 0.2s ease;
     }
-    section {
-      padding: 70px 24px;
+    .btn-dark {
+      background: #8c5a34;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
     }
-    .white { background: #fff; }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
+    .btn-light {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
     }
-    .section-title {
-      text-align: center;
-      font-size: 34px;
-      margin-bottom: 36px;
-    }
-    .grid {
+    .hero-points {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
     }
-    .card {
-      background: #f8f8f8;
-      padding: 24px;
+    .hero-point {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
       border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 16px;
     }
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
+    .hero-point strong {
+      display: block;
       font-size: 20px;
+      margin-bottom: 4px;
     }
-    .about {
-      max-width: 760px;
-      margin: 0 auto;
-      text-align: center;
-      color: #444;
-      font-size: 18px;
+    .quote-card {
+      background: rgba(255,255,255,0.95);
+      color: #171717;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
     }
-    form {
-      max-width: 700px;
-      margin: 0 auto;
+    .quote-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+    .quote-card p {
+      color: #555;
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+    .quote-grid {
       display: grid;
-      gap: 14px;
+      gap: 12px;
     }
-    input, textarea {
+    .quote-card input,
+    .quote-card textarea {
       width: 100%;
       padding: 14px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 15px;
+      font-family: inherit;
     }
-    textarea { min-height: 140px; }
-    button {
-      background: #111;
-      color: white;
-      border: none;
+    .quote-card textarea { min-height: 120px; resize: vertical; }
+    .quote-card button {
+      width: 100%;
       padding: 14px;
+      border: none;
       border-radius: 14px;
+      background: #171717;
+      color: white;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
     }
-    footer {
+    .section {
+      padding: 84px 0;
+    }
+    .section-title {
+      font-size: 40px;
+      line-height: 1.1;
+      margin: 0 0 10px;
+      letter-spacing: -1px;
       text-align: center;
-      padding: 28px 24px;
+    }
+    .section-subtitle {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      text-align: center;
+      color: #5c5c5c;
+      font-size: 18px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .service-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .service-card-content {
+      padding: 22px;
+    }
+    .service-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+    .service-card p {
+      margin: 0;
+      color: #5b5b5b;
+    }
+    .dark-band {
+      background: #171717;
+      color: white;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .step {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 24px;
+    }
+    .step-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #8c5a34;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .step h3 {
+      margin: 0 0 10px;
+    }
+    .step p {
+      margin: 0;
+      color: rgba(255,255,255,0.8);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .about-grid img {
+      width: 100%;
+      border-radius: 28px;
+      min-height: 420px;
+      object-fit: cover;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .about-copy h2 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 0 0 14px;
+      letter-spacing: -1px;
+    }
+    .about-copy p {
+      color: #555;
+      font-size: 17px;
+      margin-bottom: 16px;
+    }
+    .about-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .about-list div {
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      font-weight: 600;
+    }
+    .cta {
+      background: linear-gradient(135deg, #8c5a34, #5a3820);
+      color: white;
+      border-radius: 30px;
+      padding: 42px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .cta h3 {
+      font-size: 34px;
+      line-height: 1.1;
+      margin: 0 0 8px;
+    }
+    .cta p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+    }
+    footer {
+      padding: 28px 0 40px;
+      text-align: center;
       color: #666;
       font-size: 14px;
     }
-    @media (max-width: 640px) {
-      nav {
+    @media (max-width: 960px) {
+      .hero-grid,
+      .about-grid,
+      .services-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+      .hero-points {
+        grid-template-columns: 1fr;
+      }
+      .cta {
         flex-direction: column;
-        gap: 12px;
+        align-items: flex-start;
       }
-      .hero h2 {
-        font-size: 34px;
+    }
+    @media (max-width: 720px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
       }
-      nav div {
-        display: flex;
+      .nav-links {
         flex-wrap: wrap;
-        justify-content: center;
+        gap: 14px;
+      }
+      .hero {
+        padding: 90px 0 70px;
+      }
+      .section-title,
+      .about-copy h2,
+      .cta h3 {
+        font-size: 32px;
+      }
+      .quote-card {
+        padding: 22px;
       }
     }
   </style>
 </head>
 <body>
   <nav>
-    <h1>Espinosa Property Solutions</h1>
-    <div>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+    <div class="container nav-inner">
+      <div class="brand">Espinosa <span>Property Solutions</span></div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
   </nav>
 
-  <section class="hero">
-    <h2>Reliable Property Improvements That Add Real Value</h2>
-    <p>We help homeowners and landlords improve, repair, and upgrade their properties with honest pricing and quality work.</p>
-    <a class="btn" href="#contact">Request a Quote</a>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Property improvements for homeowners and landlords</div>
+        <h1>Clean work, strong finishes, and upgrades that add value</h1>
+        <p>Espinosa Property Solutions helps property owners handle repairs, refreshes, and practical upgrades with straightforward communication and quality work that lasts.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#contact">Request a Quote</a>
+          <a class="btn btn-light" href="#services">View Services</a>
+        </div>
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>Fast</strong>
+            Reliable turnaround for smaller property jobs
+          </div>
+          <div class="hero-point">
+            <strong>Clean</strong>
+            Professional finish without cutting corners
+          </div>
+          <div class="hero-point">
+            <strong>Practical</strong>
+            Work that improves value, function, and appearance
+          </div>
+        </div>
+      </div>
+      <div class="quote-card" id="contact">
+        <h3>Get a free quote</h3>
+        <p>Tell us what you need and we will reach out with the next step.</p>
+        <form class="quote-grid">
+          <input type="text" placeholder="Full name" />
+          <input type="email" placeholder="Email address" />
+          <input type="text" placeholder="Project type" />
+          <textarea placeholder="Tell us about the job"></textarea>
+          <button type="submit">Request Quote</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title">Services built around real property needs</h2>
+      <p class="section-subtitle">From clean interior updates to rental turnover work, the focus is on jobs that make a property look better, work better, and hold value.</p>
+      <div class="services-grid">
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" alt="Interior painting and wall repair" />
+          <div class="service-card-content">
+            <h3>Interior repairs</h3>
+            <p>Drywall patching, trim touch-ups, door adjustments, and the small fixes that make a place feel finished.</p>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" alt="Updated flooring installation" />
+          <div class="service-card-content">
+            <h3>Flooring installs</h3>
+            <p>Clean vinyl plank flooring and practical flooring upgrades that hold up well in homes and rentals.</p>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80" alt="Rental property turnover work" />
+          <div class="service-card-content">
+            <h3>Rental turnovers</h3>
+            <p>Quick refresh work to help landlords and property managers get units ready for the next tenant.</p>
+          </div>
+        </article>
+      </div>
+    </div>
   </section>
 
-  <section id="services" class="white">
+  <section class="section dark-band" id="process">
     <div class="container">
-      <h2 class="section-title">Services</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Interior Repairs</h3>
-          <p>Drywall repair, patching, trim work, and door adjustments.</p>
+      <h2 class="section-title">Simple process, no guessing</h2>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.78);">Keep it straightforward, see the job, give a quote, do the work right, and leave the place better than it was before.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Walk through the job</h3>
+          <p>We look at the scope, talk through the goal, and keep the plan clear from the start.</p>
         </div>
-        <div class="card">
-          <h3>Flooring Install</h3>
-          <p>Vinyl plank flooring and simple flooring upgrades.</p>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Give a clear quote</h3>
+          <p>You get straightforward pricing and a realistic idea of what the work will take.</p>
         </div>
-        <div class="card">
-          <h3>Property Turnovers</h3>
-          <p>Quick repairs to prepare rentals for new tenants.</p>
-        </div>
-        <div class="card">
-          <h3>Painting</h3>
-          <p>Clean and professional interior painting.</p>
-        </div>
-        <div class="card">
-          <h3>Fixture Install</h3>
-          <p>Lights, faucets, handles, and hardware replacements.</p>
-        </div>
-        <div class="card">
-          <h3>General Improvements</h3>
-          <p>Small upgrades that increase property value and function.</p>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Finish strong</h3>
+          <p>The focus stays on clean results, reliable communication, and work that actually adds value.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">About</h2>
-      <p class="about">Espinosa Property Solutions focuses on practical improvements that increase property value and functionality. The goal is simple, reliable work, fair pricing, and results that last.</p>
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80" alt="Property improvement project" />
+      <div class="about-copy">
+        <h2>Work that helps a property look sharper and function better</h2>
+        <p>Espinosa Property Solutions is built around practical improvement work, the kind of jobs that help a property show better, rent faster, and stay in better shape over time.</p>
+        <p>The goal is not to overcomplicate the process. It is to show up, communicate clearly, and do solid work that property owners can feel good about paying for.</p>
+        <div class="about-list">
+          <div>Reliable work for homeowners and landlords</div>
+          <div>Focused on practical upgrades that add value</div>
+          <div>Clean communication and straightforward service</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="contact" class="white">
+  <section class="section">
     <div class="container">
-      <h2 class="section-title">Request a Quote</h2>
-      <form>
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="text" placeholder="Project Type" />
-        <textarea placeholder="Describe your project"></textarea>
-        <button type="submit">Submit</button>
-      </form>
+      <div class="cta">
+        <div>
+          <h3>Ready to improve your property?</h3>
+          <p>Reach out for a quote and let’s talk through the job.</p>
+        </div>
+        <a class="btn btn-light" href="#contact">Start Your Quote</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    © 2026 Espinosa Property Solutions
+    © 2026 Espinosa Property Solutions. All rights reserved.
   </footer>
 </body>
 </html>
